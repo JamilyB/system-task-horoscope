@@ -1,25 +1,22 @@
 import { HoroscopePanel } from '../components/organisms/HoroscopePanel';
 import { Title } from '../components/atoms/Title';
+import Button from '../components/atoms/Button';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export const DailyResumePage = () => {
-  const [horoscopo, setHoroscopo] = useState({
-    data: '9 de Maio de 2026',
-    descricao: 'Dia de sorte!',
-    resumo: 'O dia será favorável para novos começos.',
-    compatibilidade: 'Áries e Leão',
-    humor: 'Feliz',
-    cor: 'FF6F61',
-    numero: 7,
-    horario: '14:00',
-  });
+
+export const Home = () => {
+
+  const navigate = useNavigate();
 
   return (
-    <div className="p-4 space-y-4">
-      <Title className="text-center">Horoscopo do Dia</Title>
-      <div className="flex gap-4">
-        <HoroscopePanel data={horoscopo} />
+      <div>
+        <button onClick={() => navigate('/login')} style={{ padding: '10px', backgroundColor: '#FF6F61', color: '#fff' }}>
+          Login
+        </button>
+        <button onClick={() => navigate('/register')} style={{ padding: '10px', backgroundColor: '#FF6F61', color: '#fff' }}>
+          Registrar
+        </button>
       </div>
-    </div>
   );
 };

@@ -10,7 +10,7 @@ const Header = () => {
       textAlign: 'center',
       fontWeight: 'bold'
     }}>
-      Simple Planner
+      Task Horoscope
     </header>
   );
 };
