@@ -10,7 +10,7 @@ import java.time.LocalTime;
 
 
 @Entity
-@Table(name= "contatos")
+@Table(name= "task")
 @AllArgsConstructor //Construtor AllArgs
 @NoArgsConstructor //Construtor NoArgs
 @Data //getters e setters

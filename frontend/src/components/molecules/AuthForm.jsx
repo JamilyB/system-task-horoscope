@@ -10,13 +10,26 @@ const AuthForm = ({ type = 'login', onSubmit }) => {
     confirmPassword: '',
   });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(form);
+
+    if (type === 'login') {
+      onSubmit({
+        email: form.email,
+        senha: form.password, // enviar com o nome que backend espera
+      });
+    } else {
+      onSubmit({
+        email: form.email,
+        senha: form.password,
+        confirmarSenha: form.confirmPassword,
+        birthdate: form.birthdate,
+      });
+    }
+  };
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   return (
@@ -57,7 +70,7 @@ const AuthForm = ({ type = 'login', onSubmit }) => {
         />
       )}
 
-      <Button>{type === 'login' ? 'Entrar' : 'Cadastrar'}</Button>
+      <Button type="submit">{type === 'login' ? 'Entrar' : 'Cadastrar'}</Button>
     </form>
   );
 };

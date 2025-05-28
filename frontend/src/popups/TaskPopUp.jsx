@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '../components/atoms/Button';
 import Input from '../components/atoms/Input';
 
-
-export const TaskPopUp = ({ show, onClose, onAddTask }) => {
+export const TaskPopUp = ({ show, onClose, onSaveTask, editingTask }) => {
   const [descricao, setDescricao] = useState('');
   const [data, setData] = useState('');
   const [time, setTime] = useState('');
+
+  useEffect(() => {
+    if (editingTask) {
+      setDescricao(editingTask.descricao);
+      setData(editingTask.data);
+      setTime(editingTask.time || '');
+    } else {
+      setDescricao('');
+      setData('');
+      setTime('');
+    }
+  }, [editingTask]);
 
   if (!show) return null;
 
@@ -15,10 +26,9 @@ export const TaskPopUp = ({ show, onClose, onAddTask }) => {
       alert('Preencha descrição e data');
       return;
     }
-    onAddTask({ descricao, data, time });
-    setDescricao('');
-    setData('');
-    setTime('');
+
+    const updatedTask = { descricao, data, time };
+    onSaveTask(updatedTask);  // ✅ Chama a função passada como prop
     onClose();
   };
 
@@ -45,7 +55,8 @@ export const TaskPopUp = ({ show, onClose, onAddTask }) => {
   return (
     <div style={backdropStyle}>
       <div style={popupStyle}>
-        <h4>Adicionar tarefa</h4>
+        <h4>{editingTask ? 'Editar tarefa' : 'Adicionar tarefa'}</h4>
+
         <Input
           type="text"
           placeholder="Descrição"
@@ -66,9 +77,8 @@ export const TaskPopUp = ({ show, onClose, onAddTask }) => {
           style={{ width: '100%', marginBottom: '1rem', padding: '0.375rem 0.75rem' }}
         />
 
-
-        <Button onClick={handleSubmit} style={{ marginRight: '0.5rem' }} >
-          Adicionar
+        <Button onClick={handleSubmit} style={{ marginRight: '0.5rem' }}>
+          {editingTask ? 'Salvar' : 'Adicionar'}
         </Button>
         <Button onClick={onClose} className="btn btn-secondary">
           Cancelar
