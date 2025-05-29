@@ -9,9 +9,9 @@ export const TaskPopUp = ({ show, onClose, onSaveTask, editingTask }) => {
 
   useEffect(() => {
     if (editingTask) {
-      setDescricao(editingTask.descricao);
-      setData(editingTask.data);
-      setTime(editingTask.time || '');
+      setDescricao(editingTask.descricao || '');
+      setData(editingTask.data_task || '');   // ajustar aqui
+      setTime(editingTask.time_task || '');   // ajustar aqui
     } else {
       setDescricao('');
       setData('');
@@ -27,34 +27,33 @@ export const TaskPopUp = ({ show, onClose, onSaveTask, editingTask }) => {
       return;
     }
 
+    // Monta objeto com os campos para enviar para o backend
     const updatedTask = { descricao, data, time };
-    onSaveTask(updatedTask);  // ✅ Chama a função passada como prop
+    onSaveTask(updatedTask);
     onClose();
   };
 
-  const backdropStyle = {
-    position: 'fixed',
-    top: 0, left: 0,
-    width: '100vw', height: '100vh',
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 1050,
-  };
-
-  const popupStyle = {
-    backgroundColor: 'white',
-    padding: '1.5rem',
-    borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-    width: '320px',
-    maxWidth: '90vw',
-  };
+  // ... estilos e JSX do popup ficam iguais
 
   return (
-    <div style={backdropStyle}>
-      <div style={popupStyle}>
+    <div style={{
+      position: 'fixed',
+      top: 0, left: 0,
+      width: '100vw', height: '100vh',
+      backgroundColor: 'rgba(0,0,0,0.4)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      zIndex: 1050,
+    }}>
+      <div style={{
+        backgroundColor: 'white',
+        padding: '1.5rem',
+        borderRadius: '8px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+        width: '320px',
+        maxWidth: '90vw',
+      }}>
         <h4>{editingTask ? 'Editar tarefa' : 'Adicionar tarefa'}</h4>
 
         <Input

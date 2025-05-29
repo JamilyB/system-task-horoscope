@@ -20,9 +20,9 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate dataTask;
+    private LocalDate data_task;
 
-    private LocalTime timeTask;
+    private LocalTime time_task;
 
     private String descricao;
 

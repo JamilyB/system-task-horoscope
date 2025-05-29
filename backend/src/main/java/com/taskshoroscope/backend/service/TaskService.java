@@ -14,4 +14,15 @@ public class TaskService {
     public Task create(Task task) {
         return taskRepository.save(task);
     }
+
+    public Task update(Task task) {
+        return taskRepository.save(task);
+    }
+
+    public void delete(Long id) {
+        if (!taskRepository.existsById(id)) {
+            throw new RuntimeException("Task não encontrada");
+        }
+        taskRepository.deleteById(id);
+    }
 }

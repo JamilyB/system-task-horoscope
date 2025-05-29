@@ -2,13 +2,16 @@ package com.taskshoroscope.backend.controller;
 
 import com.taskshoroscope.backend.dto.LoginDTO;
 import com.taskshoroscope.backend.dto.RegisterDTO;
+import com.taskshoroscope.backend.dto.UserProfileDTO;
 import com.taskshoroscope.backend.entity.User;
 import com.taskshoroscope.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -24,11 +27,30 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    //@PostMapping("/login")
+    //public ResponseEntity<String> login(@RequestBody LoginDTO dto) {
+       // System.out.println("➡️ [Controller] Recebida requisição de login: " + dto);
+       // User user = userService.authenticate(dto);
+       // System.out.println("✅ [Controller] Usuário autenticado: " + user.getNome());
+       // return ResponseEntity.ok("Login realizado com sucesso! Bem-vindo, " + user.getNome());
+   // }
+
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO dto) {
-        System.out.println("➡️ [Controller] Recebida requisição de login: " + dto);
+    public ResponseEntity<?> login(@RequestBody LoginDTO dto) {
         User user = userService.authenticate(dto);
-        System.out.println("✅ [Controller] Usuário autenticado: " + user.getNome());
-        return ResponseEntity.ok("Login realizado com sucesso! Bem-vindo, " + user.getNome());
+        if (user == null) {
+            return ResponseEntity.status(401).body(Map.of("message", "Credenciais inválidas"));
+        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("userId", user.getId());
+        response.put("message", "Login realizado com sucesso! Bem-vindo, " + user.getNome());
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfileDTO> getProfile(@RequestParam Long userId) {
+        UserProfileDTO profile = userService.getUserProfile(userId);
+        return ResponseEntity.ok(profile);
     }
 }

@@ -2,6 +2,7 @@ package com.taskshoroscope.backend.service;
 
 import com.taskshoroscope.backend.dto.LoginDTO;
 import com.taskshoroscope.backend.dto.RegisterDTO;
+import com.taskshoroscope.backend.dto.UserProfileDTO;
 import com.taskshoroscope.backend.entity.Horoscope;
 import com.taskshoroscope.backend.entity.User;
 import com.taskshoroscope.backend.repository.HoroscopeRepository;
@@ -69,6 +70,18 @@ public class UserService {
         String signo = calcularSigno(birthdate);
         return horoscopeRepository.findBySigno(signo)
                 .orElseThrow(() -> new IllegalArgumentException("Signo não encontrado: " + signo));
+    }
+
+    public UserProfileDTO getUserProfile(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        UserProfileDTO dto = new UserProfileDTO();
+        dto.setNome(user.getNome());
+        dto.setEmail(user.getEmail());
+        dto.setSigno(user.getHoroscope().getSigno());
+
+        return dto;
     }
 
     private String calcularSigno(LocalDate birthdate) {

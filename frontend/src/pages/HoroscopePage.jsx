@@ -1,26 +1,54 @@
 import { HoroscopePanel } from '../components/organisms/HoroscopePanel';
-import { Title } from '../components/atoms/Title';
 import Button from '../components/atoms/Button';
 import { TaskPanel } from '../components/organisms/TaskPanel';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const HoroscopePage = () => {
   const navigate = useNavigate();
-
-  const [dataSelecionada, setDataSelecionada] = useState('hoje');
-  const signo = 'Libra';
+  const [signo, setSigno] = useState('');
+  const [dataSelecionada, setDataSelecionada] = useState('today'); // Mantido, mas é só estético
 
   const [horoscopo, setHoroscopo] = useState({
-    data: '9 de Maio de 2026',
-    descricao: 'Dia de sorte!',
-    resumo: 'O dia será favorável para novos começos. testando o limite dessa pagina, ate onde vai minha linha',
-    compatibilidade: 'Áries e Leão',
-    humor: 'Feliz',
-    cor: 'FF6F61',
-    numero: 7,
-    horario: '14:00',
+    horoscope: '',
+    date: ''
   });
+
+  useEffect(() => {
+    const userSigno = localStorage.getItem('signo');
+    if (!userSigno) {
+      alert('Usuário não autenticado. Redirecionando...');
+      navigate('/login');
+    } else {
+      setSigno(userSigno);
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    if (!signo) return;
+
+    // Desativado temporariamente
+    /*
+    const fetchHoroscope = async () => {
+      try {
+        const response = await fetch(`https://ohmanda.com/api/horoscope/${signo}`);
+        if (!response.ok) throw new Error('Erro ao buscar horóscopo');
+        const data = await response.json();
+        setHoroscopo(data);
+      } catch (error) {
+        alert('Erro: ' + error.message);
+      }
+    };
+
+    fetchHoroscope();
+    */
+
+    // Mock para continuar o desenvolvimento:
+    setHoroscopo({
+      horoscope: 'Em breve seu horóscopo estará disponível!',
+      date: new Date().toISOString().split('T')[0]
+    });
+  }, [signo]);
 
 
   return (
@@ -31,23 +59,23 @@ export const HoroscopePage = () => {
       </h2>
 
       <div className="d-flex justify-content-center gap-3 mb-4">
-        <Button onClick={() => setDataSelecionada('ontem')}>Ontem</Button>
-        <Button onClick={() => setDataSelecionada('hoje')}>Hoje</Button>
-        <Button onClick={() => setDataSelecionada('amanhã')}>Amanhã</Button>
+        <Button onClick={() => setDataSelecionada('yesterday')}>Ontem</Button>
+        <Button onClick={() => setDataSelecionada('today')}>Hoje</Button>
+        <Button onClick={() => setDataSelecionada('tomorrow')}>Amanhã</Button>
       </div>
 
       <h2 className="text-center mb-4 fs-13 text-dark">
-        <span>{horoscopo.data}</span>
+        <span>{horoscopo.date}</span>
       </h2>
 
       <div className="row justify-content-center">
-          <div className="col-md-6">
-            <HoroscopePanel horoscopos={[horoscopo]} />
-          </div>
-          <div className="col-md-6">
-            <TaskPanel />
-          </div>
+        <div className="col-md-6">
+          <HoroscopePanel horoscopos={[horoscopo]} />
+        </div>
+        <div className="col-md-6">
+          <TaskPanel />
+        </div>
       </div>
-      </div>
+    </div>
   );
 };
