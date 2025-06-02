@@ -33,46 +33,53 @@ const AuthForm = ({ type = 'login', onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="d-flex flex-column gap-3 w-100" style={{ maxWidth: '400px' }}>
-      <Input
-        type="email"
-        name="email"
-        placeholder="E-mail"
-        value={form.email}
-        onChange={handleChange}
-      />
+    <>
+      <h2 style={{ color: 'white', fontWeight: 'bold', marginBottom: '1rem' }}>
+        {type === 'login' ? 'Login' : 'Cadastro'}
+      </h2>
 
-      {type === 'register' && (
+      <form onSubmit={handleSubmit} className="d-flex flex-column gap-3 w-100" style={{ maxWidth: '400px' }}>
         <Input
-          type="date"
-          name="birthdate"
-          placeholder="Data de nascimento"
-          value={form.birthdate}
+          type="email"
+          name="email"
+          placeholder="E-mail"
+          value={form.email}
           onChange={handleChange}
         />
-      )}
 
-      <Input
-        type="password"
-        name="password"
-        placeholder="Senha"
-        value={form.password}
-        onChange={handleChange}
-      />
+        {type === 'register' && (
+          <Input
+            type="date"
+            name="birthdate"
+            placeholder="Data de nascimento"
+            value={form.birthdate}
+            onChange={handleChange}
+          />
+        )}
 
-      {type === 'register' && (
         <Input
           type="password"
-          name="confirmPassword"
-          placeholder="Confirmar senha"
-          value={form.confirmPassword}
+          name="password"
+          placeholder="Senha"
+          value={form.password}
           onChange={handleChange}
         />
-      )}
 
-      <Button type="submit">{type === 'login' ? 'Entrar' : 'Cadastrar'}</Button>
-    </form>
+        {type === 'register' && (
+          <Input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirmar senha"
+            value={form.confirmPassword}
+            onChange={handleChange}
+          />
+        )}
+
+        <Button type="submit">{type === 'login' ? 'Entrar' : 'Cadastrar'}</Button>
+      </form>
+    </>
   );
+
 };
 
 export default AuthForm;

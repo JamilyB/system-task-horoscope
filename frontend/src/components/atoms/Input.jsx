@@ -19,8 +19,10 @@ const Input = ({ type = 'text', name, value, placeholder, onChange, label }) => 
       onChange={onChange}
       className="form-control"
       style={{
-        borderColor: '#ccc',
+        borderColor: '#463370',
         transition: 'border-color 0.3s',
+        backgroundColor: '#463370',
+        color : 'white'
       }}
       onFocus={e => e.target.style.borderColor = '#6f42c1'}
       onBlur={e => e.target.style.borderColor = '#ccc'}

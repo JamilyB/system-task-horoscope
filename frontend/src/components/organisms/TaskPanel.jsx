@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 import { TaskCard } from '../molecules/TaskCard';
 import { TaskPopUp } from '../../popups/TaskPopUp';
+import Button from '../atoms/Button';
 
 export const TaskPanel = () => {
   const [tasks, setTasks] = useState([]);
   const [showPopUp, setShowPopUp] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
 
-  // Carregar tarefas do backend ao montar o componente
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         const userId = localStorage.getItem('userId');
-        if (!userId) return;  // só busca se tiver userId
+        if (!userId) return;
         const response = await fetch(`http://localhost:8080/task?userId=${userId}`);
         if (!response.ok) throw new Error('Erro ao buscar tarefas');
         const data = await response.json();
-        setTasks(data);  // Assumindo que backend retorna array de tasks
+        setTasks(data);
       } catch (error) {
         console.error(error);
       }
@@ -36,7 +36,7 @@ export const TaskPanel = () => {
     setShowPopUp(false);
   };
 
-  // Função que chama o backend para salvar a task e atualiza estado
+
   const handleSaveTaskToAPI = async (task) => {
     try {
       const userId = localStorage.getItem('userId');
@@ -54,12 +54,12 @@ export const TaskPanel = () => {
 
         alert('Enviando para API:\n' + JSON.stringify(taskToSend, null, 2));
 
-        let response;  // declare fora do if para usar depois
+        let response;
 
         if (editingIndex !== null) {
           const taskId = tasks[editingIndex].id;
           response = await fetch(`http://localhost:8080/task/${taskId}`, {
-            method: 'PUT',  // ou PATCH, conforme sua API
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(taskToSend),
           });
@@ -117,8 +117,13 @@ export const TaskPanel = () => {
   };
 
   return (
-    <div>
+    <div >
+    <div className="d-flex align-items-center justify-content-between mb-2">
       <h3>Agendamentos</h3>
+      <Button onClick={() => setShowPopUp(true)}>
+        + Adicionar tarefa
+      </Button>
+    </div>
 
       {tasks.length === 0 && <p>Nenhuma tarefa cadastrada.</p>}
       {tasks.map((task, index) => (
@@ -130,13 +135,6 @@ export const TaskPanel = () => {
         />
       ))}
 
-      <button
-        className="btn btn-primary mt-3"
-        onClick={() => setShowPopUp(true)}
-      >
-        Adicionar tarefa
-      </button>
-
       <TaskPopUp
         show={showPopUp}
         onClose={() => {
@@ -144,7 +142,6 @@ export const TaskPanel = () => {
           setEditingIndex(null);
         }}
         onSaveTask={(task) => {
-          // Salvar na API antes de atualizar localmente
           handleSaveTaskToAPI(task);
         }}
         editingTask={editingIndex !== null ? tasks[editingIndex] : null}

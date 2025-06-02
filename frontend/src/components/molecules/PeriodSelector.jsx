@@ -2,7 +2,7 @@ import Button from '../atoms/Button';
 
 function PeriodSelector({ PeriodoSelecionado, setPeriodoSelecionado }) {
   return (
-    <div className="d-flex justify-content-center gap-3 mb-4">
+    <div className="d-flex justify-content-center mb-4">
       <Button
         onClick={() => setPeriodoSelecionado('monthly')}
         active={PeriodoSelecionado === 'monthly'}

@@ -3,6 +3,7 @@ import { TaskPanel } from '../components/organisms/TaskPanel';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PeriodSelector from '../components/molecules/PeriodSelector';
+import background from '../assets/background2.png'
 
 export const HoroscopePage = () => {
   const navigate = useNavigate();
@@ -53,17 +54,33 @@ export const HoroscopePage = () => {
 
 
   return (
-    <div className="container py-4">
-      <h2 className="text-center mb-4">
-        Olá, <span className="text-primary fw-bold">{signo}</span>, bem-vindo(a) ao seu{' '}
-        <span className="text-decoration-underline text-secondary">resumo {PeriodoSelecionado}</span>.
-      </h2>
+    <div
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
+        width: '100%',
+        color: 'white',
+      }}
+    >
+      <div className="container py-4">
+          <PeriodSelector PeriodoSelecionado={PeriodoSelecionado} setPeriodoSelecionado={setPeriodoSelecionado} />
+        <h2 className="text-center mb-4">
+          Olá, <span className="text-primary fw-bold">{signo}</span>, bem-vindo(a) ao seu{' '}
+          <span className="text-decoration-underline text-secondary">resumo {PeriodoSelecionado}</span>.
+        </h2>
 
-      <PeriodSelector PeriodoSelecionado={PeriodoSelecionado} setPeriodoSelecionado={setPeriodoSelecionado} />
-
-      <HoroscopePanel horoscopo={horoscopo} />
-
-      <TaskPanel />
+        <div className="d-flex" style={{ gap: '1rem', flexWrap: 'nowrap' }}>
+          <div style={{ flex: '2' }}>
+            <TaskPanel />
+          </div>
+          <div style={{ flex: '2' }}>
+            <HoroscopePanel horoscopo={horoscopo} signo={signo} />
+          </div>
+        </div>
+      </div>
     </div>
+
   );
 };
