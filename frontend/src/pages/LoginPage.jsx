@@ -6,7 +6,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    alert('Entrou na rota /login');
   }, []);
 
 const handleLogin = async (data) => {
@@ -28,7 +27,6 @@ const handleLogin = async (data) => {
     }
 
     const resData = await response.json();
-    alert(resData.message);
 
     localStorage.setItem('userId', resData.userId);
 
@@ -42,7 +40,7 @@ const handleLogin = async (data) => {
     const profile = await profileResponse.json();
     localStorage.setItem('signo', profile.signo);
 
-    alert(`Perfil carregado. Signo: ${profile.signo}`);
+    //alert(`Perfil carregado. Signo: ${profile.signo}`);
 
     navigate('/horoscope');
 

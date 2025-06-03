@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import AuthLayout from '../components/organisms/AuthLayout';
-
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
+
+    const navigate = useNavigate();
+
     useEffect(() => {
-      alert('Entrou na rota /register');
     }, []);
 
   const handleRegister = async (data) => {
-    alert('Iniciando registro...');
+
     try {
-      alert(`Enviando dados: ${JSON.stringify(data)}`);
 
       const response = await fetch('http://localhost:8080/register', {
         method: 'POST',
@@ -24,15 +25,15 @@ const RegisterPage = () => {
         }),
       });
 
-      alert(`Resposta recebida. Status: ${response.status}`);
-
       if (!response.ok) {
         alert('Erro no registro. Status: ' + response.status);
         return;
       }
 
       const user = await response.json();
-      alert(`Usuário registrado: ${user.nome}`);
+
+      navigate('/login');
+
     } catch (error) {
       alert('Erro ao registrar: ' + error.message);
     }

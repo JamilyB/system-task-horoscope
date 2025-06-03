@@ -7,8 +7,8 @@ export const TaskCard = ({ descricao, data_task, time_task, onDelete, onEdit }) 
       style={{ backgroundColor: '#301b68', color: 'white' }}
     >
       <div>
-        <small className="d-block">Data: {data_task}</small>
-        <small className="d-block">Hora: {time_task}</small>
+        <small className="d-block">{data_task}</small>
+        <small className="d-block">{time_task}</small>
       </div>
       <div className="ms-2 text-end" style={{ flex: 1 }}>
         <p className="mb-0">{descricao}</p>

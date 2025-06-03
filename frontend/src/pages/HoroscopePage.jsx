@@ -15,6 +15,9 @@ export const HoroscopePage = () => {
     date: ''
   });
 
+
+  const [horoscopeData, setHoroscopeData] = useState(null);
+
   useEffect(() => {
     const userSigno = localStorage.getItem('signo');
     if (!userSigno) {
@@ -33,10 +36,7 @@ export const HoroscopePage = () => {
         const response = await fetch(`http://localhost:8080/proxy/horoscope?sign=${signo}&period=${PeriodoSelecionado}`);
         if (!response.ok) throw new Error('Erro ao buscar horóscopo');
 
-        // Tenta interpretar JSON, pode lançar erro se receber HTML
         const data = await response.json();
-
-        alert(JSON.stringify(data, null, 2));
 
         setHoroscopo({
           description: data.data.horoscope_data,
@@ -51,6 +51,25 @@ export const HoroscopePage = () => {
 
     fetchHoroscope();
   }, [signo, PeriodoSelecionado]);
+
+  useEffect(() => {
+    if (!signo) return;
+
+    const fetchHoroscopeData = async () => {
+      try {
+        const res = await fetch(`http://localhost:8080/horoscope-data?signo=${signo}`);
+        if (!res.ok) throw new Error('Erro ao buscar dados do signo');
+
+        const data = await res.json();
+        setHoroscopeData(data);
+
+      } catch (error) {
+        console.error('Erro ao buscar dados do signo:', error);
+      }
+    };
+
+    fetchHoroscopeData();
+  }, [signo]);
 
 
   return (
@@ -67,8 +86,8 @@ export const HoroscopePage = () => {
       <div className="container py-4">
           <PeriodSelector PeriodoSelecionado={PeriodoSelecionado} setPeriodoSelecionado={setPeriodoSelecionado} />
         <h2 className="text-center mb-4">
-          Olá, <span className="text-primary fw-bold">{signo}</span>, bem-vindo(a) ao seu{' '}
-          <span className="text-decoration-underline text-secondary">resumo {PeriodoSelecionado}</span>.
+          Bem-vindo(a) ao seu
+          resumo {PeriodoSelecionado}.
         </h2>
 
         <div className="d-flex" style={{ gap: '1rem', flexWrap: 'nowrap' }}>
@@ -76,11 +95,14 @@ export const HoroscopePage = () => {
             <TaskPanel />
           </div>
           <div style={{ flex: '2' }}>
-            <HoroscopePanel horoscopo={horoscopo} signo={signo} />
+            <HoroscopePanel
+              horoscopo={horoscopo}
+              signo={signo}
+              icone={horoscopeData?.icone}
+            />
           </div>
         </div>
       </div>
     </div>
-
   );
 };

@@ -52,8 +52,6 @@ export const TaskPanel = () => {
         delete taskToSend.data;
         delete taskToSend.time;
 
-        alert('Enviando para API:\n' + JSON.stringify(taskToSend, null, 2));
-
         let response;
 
         if (editingIndex !== null) {
@@ -77,8 +75,6 @@ export const TaskPanel = () => {
       }
 
       const savedTask = await response.json();
-
-      alert('Resposta da API:\n' + JSON.stringify(savedTask, null, 2));
 
       if (editingIndex !== null) {
         const updated = [...tasks];

@@ -7,17 +7,18 @@ export const TaskPopUp = ({ show, onClose, onSaveTask, editingTask }) => {
   const [data, setData] = useState('');
   const [time, setTime] = useState('');
 
-  useEffect(() => {
+
+ useEffect(() => {
     if (editingTask) {
       setDescricao(editingTask.descricao || '');
-      setData(editingTask.data_task || '');   // ajustar aqui
-      setTime(editingTask.time_task || '');   // ajustar aqui
-    } else {
+      setData(editingTask.data_task || '');
+      setTime(editingTask.time_task || '');
+    } else if (show) {
       setDescricao('');
       setData('');
       setTime('');
     }
-  }, [editingTask]);
+  }, [editingTask, show]);
 
   if (!show) return null;
 
@@ -27,15 +28,22 @@ export const TaskPopUp = ({ show, onClose, onSaveTask, editingTask }) => {
       return;
     }
 
-    // Monta objeto com os campos para enviar para o backend
     const updatedTask = { descricao, data, time };
     onSaveTask(updatedTask);
     onClose();
   };
 
-  // ... estilos e JSX do popup ficam iguais
 
-  return (
+return (
+  <>
+    <style>{`
+      .cancel-btn {
+        color: red !important;
+        background-color: transparent !important;
+        border-color: transparent !important;
+        margin-left: 0.5rem; /* espaço entre botões */
+      }
+    `}</style>
     <div style={{
       position: 'fixed',
       top: 0, left: 0,
@@ -53,6 +61,7 @@ export const TaskPopUp = ({ show, onClose, onSaveTask, editingTask }) => {
         boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
         width: '320px',
         maxWidth: '90vw',
+        color: '#6e51b8', // texto roxo
       }}>
         <h4>{editingTask ? 'Editar tarefa' : 'Adicionar tarefa'}</h4>
 
@@ -79,10 +88,16 @@ export const TaskPopUp = ({ show, onClose, onSaveTask, editingTask }) => {
         <Button onClick={handleSubmit} style={{ marginRight: '0.5rem' }}>
           {editingTask ? 'Salvar' : 'Adicionar'}
         </Button>
-        <Button onClick={onClose} className="btn btn-secondary">
+        <Button
+          onClick={onClose}
+          className="cancel-btn"
+        >
           Cancelar
         </Button>
       </div>
     </div>
-  );
+  </>
+);
+
+
 };

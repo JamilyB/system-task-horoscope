@@ -27,14 +27,6 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    //@PostMapping("/login")
-    //public ResponseEntity<String> login(@RequestBody LoginDTO dto) {
-       // System.out.println("➡️ [Controller] Recebida requisição de login: " + dto);
-       // User user = userService.authenticate(dto);
-       // System.out.println("✅ [Controller] Usuário autenticado: " + user.getNome());
-       // return ResponseEntity.ok("Login realizado com sucesso! Bem-vindo, " + user.getNome());
-   // }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO dto) {
         User user = userService.authenticate(dto);
