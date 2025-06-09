@@ -19,7 +19,10 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {
+        "http://localhost:3000",
+        "https://system-task-horoscope-frontend.onrender.com"
+})
 public class HoroscopeController {
 
     private final RestTemplate restTemplate = new RestTemplate();
