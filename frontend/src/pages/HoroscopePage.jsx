@@ -33,7 +33,7 @@ export const HoroscopePage = () => {
 
     const fetchHoroscope = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/proxy/horoscope?sign=${signo}&period=${PeriodoSelecionado}`);
+        const response = await fetch(`https://system-task-horoscope-backend.onrender.com/proxy/horoscope?sign=${signo}&period=${PeriodoSelecionado}`);
         if (!response.ok) throw new Error('Erro ao buscar horóscopo');
 
         const data = await response.json();
@@ -57,7 +57,7 @@ export const HoroscopePage = () => {
 
     const fetchHoroscopeData = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/horoscope-data?signo=${signo}`);
+        const res = await fetch(`https://system-task-horoscope-backend.onrender.com/horoscope-data?signo=${signo}`);
         if (!res.ok) throw new Error('Erro ao buscar dados do signo');
 
         const data = await res.json();

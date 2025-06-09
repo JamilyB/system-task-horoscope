@@ -30,7 +30,7 @@ const handleLogin = async (data) => {
 
     localStorage.setItem('userId', resData.userId);
 
-    const profileResponse = await fetch(`http://localhost:8080/profile?userId=${resData.userId}`);
+    const profileResponse = await fetch(`https://system-task-horoscope-backend.onrender.com/profile?userId=${resData.userId}`);
 
     if (!profileResponse.ok) {
       alert('Erro ao buscar perfil: ' + profileResponse.status);
