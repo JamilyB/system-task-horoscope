@@ -44,7 +44,6 @@ public class HoroscopeController {
         try {
             String response = restTemplate.getForObject(url, String.class);
             System.out.println("Resposta da API externa: " + response);
-            // Checa se resposta parece JSON (começa com { ou [)
             if (response == null || !(response.trim().startsWith("{") || response.trim().startsWith("["))) {
                 return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
                         .body("{\"error\":\"Resposta inválida do serviço externo\"}");
