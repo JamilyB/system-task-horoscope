@@ -13,7 +13,7 @@ export const TaskPanel = () => {
       try {
         const userId = localStorage.getItem('userId');
         if (!userId) return;
-        const response = await fetch(`http://localhost:8080/task?userId=${userId}`);
+        const response = await fetch(`https://system-task-horoscope-backend.onrender.com/task?userId=${userId}`);
         if (!response.ok) throw new Error('Erro ao buscar tarefas');
         const data = await response.json();
         setTasks(data);
@@ -56,13 +56,13 @@ export const TaskPanel = () => {
 
         if (editingIndex !== null) {
           const taskId = tasks[editingIndex].id;
-          response = await fetch(`http://localhost:8080/task/${taskId}`, {
+          response = await fetch(`https://system-task-horoscope-backend.onrender.com/task/${taskId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(taskToSend),
           });
         } else {
-          response = await fetch('http://localhost:8080/task', {
+          response = await fetch('https://system-task-horoscope-backend.onrender.com/task', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(taskToSend),
@@ -99,7 +99,7 @@ export const TaskPanel = () => {
   const handleDelete = async (index) => {
     try {
       const taskToDelete = tasks[index];
-      const response = await fetch(`http://localhost:8080/task/${taskToDelete.id}`, {
+      const response = await fetch(`https://system-task-horoscope-backend.onrender.com/task/${taskToDelete.id}`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Erro ao deletar tarefa');
