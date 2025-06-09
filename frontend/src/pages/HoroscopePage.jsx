@@ -18,20 +18,20 @@ export const HoroscopePage = () => {
 
   const [horoscopeData, setHoroscopeData] = useState(null);
 
-  const translateText = async (text) => {
-    const res = await fetch('https://libretranslate.de/translate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        q: text,
-        source: 'en',
-        target: 'pt',
-        format: 'text',
-      }),
-    });
-    const data = await res.json();
-    return data.translatedText;
-  };
+  //const translateText = async (text) => {
+  //  const res = await fetch('https://libretranslate.de/translate', {
+  //    method: 'POST',
+  //    headers: { 'Content-Type': 'application/json' },
+  //    body: JSON.stringify({
+  //      q: text,
+  //      source: 'en',
+  //      target: 'pt',
+  //      format: 'text',
+  //    }),
+  //  });
+  //  const data = await res.json();
+  //  return data.translatedText;
+  //};
 
   useEffect(() => {
     const userSigno = localStorage.getItem('signo');
@@ -53,10 +53,11 @@ export const HoroscopePage = () => {
 
         const data = await response.json();
 
-        const translatedDescription = await translateText(data.data.horoscope_data);
+       //const translatedDescription = await translateText(data.data.horoscope_data);
 
         setHoroscopo({
-          description: translatedDescription,
+          //description: translatedDescription,
+          description: data.data.horoscope_data,
           date: new Date().toISOString().split('T')[0]
         });
 

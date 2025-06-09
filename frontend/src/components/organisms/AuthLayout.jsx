@@ -10,7 +10,6 @@ const AuthLayout = ({ type = 'login', onSubmit }) => {
       backgroundImage: `url(${background})`,
       backgroundSize: 'cover',
     }}>
-      {/* Card posicionado no lado direito, centralizado verticalmente */}
       <div style={{
         position: 'absolute',
         top: '50%',

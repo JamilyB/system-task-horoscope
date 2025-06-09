@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Task Horoscope",
+  "name": "Aplicativo de Agendamento com Horoscopo",
   "icons": [
     {
       "src": "favicon.png",

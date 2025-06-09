@@ -77,6 +77,15 @@ const AuthForm = ({ type = 'login', onSubmit }) => {
 
         <Button type="submit">{type === 'login' ? 'Entrar' : 'Cadastrar'}</Button>
       </form>
+
+     {type === 'register' && (
+       <p
+         style={{ marginTop: '1rem', color: '#61dafb', cursor: 'pointer' }}
+         onClick={() => window.location.href = '/login'}
+       >
+         Já tenho cadastro
+       </p>
+     )}
     </>
   );
 
