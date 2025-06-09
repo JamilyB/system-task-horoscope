@@ -14,11 +14,15 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:3000")
-                        .allowedMethods("*")       // Todos métodos HTTP permitidos
-                        .allowedHeaders("*")       // Todos cabeçalhos permitidos
-                        .allowCredentials(true);   // Permitir cookies se precisar
+                        .allowedOrigins(
+                                "http://localhost:3000",
+                                "https://system-task-horoscope-frontend.onrender.com"
+                        )
+                        .allowedMethods("*")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
 }
+
