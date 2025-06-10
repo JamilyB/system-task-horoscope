@@ -93,7 +93,7 @@ export const HoroscopePage = () => {
   return (
     <div
       style={{
-        backgroundImage: `url(${background})`,
+        backgroundColor: '#221e44',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         minHeight: '100vh',

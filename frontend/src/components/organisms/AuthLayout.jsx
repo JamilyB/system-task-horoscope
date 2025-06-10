@@ -1,6 +1,6 @@
 import React from 'react';
 import AuthForm from '../molecules/AuthForm';
-import background from '../../assets/background.png'
+import background from '../../assets/background1.png'
 const AuthLayout = ({ type = 'login', onSubmit }) => {
   return (
     <div style={{

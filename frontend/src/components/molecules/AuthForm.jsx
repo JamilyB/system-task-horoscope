@@ -20,7 +20,7 @@ const AuthForm = ({ type = 'login', onSubmit }) => {
     if (type === 'login') {
       onSubmit({
         email: form.email,
-        senha: form.password, 
+        senha: form.password,
       });
     } else {
       onSubmit({

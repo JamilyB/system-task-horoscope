@@ -19,13 +19,13 @@ const Input = ({ type = 'text', name, value, placeholder, onChange, label }) => 
       onChange={onChange}
       className="form-control"
       style={{
-        borderColor: '#463370',
+        border: '2px solid #6e51b8',
         transition: 'border-color 0.3s',
-        backgroundColor: '#463370',
-        color : 'white'
+        backgroundColor: '#fff',
+        color: '#000'
       }}
-      onFocus={e => e.target.style.borderColor = '#6f42c1'}
-      onBlur={e => e.target.style.borderColor = '#ccc'}
+      onFocus={e => e.target.style.borderColor = '#6e51b8'}
+      onBlur={e => e.target.style.borderColor = '#6e51b8'}
     />
   </div>
 );
