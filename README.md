@@ -1,8 +1,10 @@
-# 🔮 Task Horoscope
+<div align="center">
+
+# Task Horoscope
 
 Sistema web que permite **agendar tarefas** e receber **previsões astrológicas** personalizadas via integração com a API externa **Horoscope-AI**.
 
----
+</div>
 
 ##  Funcionalidades
 
