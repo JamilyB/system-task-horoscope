@@ -4,6 +4,9 @@ import Button from '../atoms/Button';
 import { useNavigate } from 'react-router-dom';
 
 const AuthForm = ({ type = 'login', onSubmit }) => {
+
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: '',
     birthdate: '',
@@ -17,7 +20,7 @@ const AuthForm = ({ type = 'login', onSubmit }) => {
     if (type === 'login') {
       onSubmit({
         email: form.email,
-        senha: form.password, // enviar com o nome que backend espera
+        senha: form.password, 
       });
     } else {
       onSubmit({
