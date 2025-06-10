@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../atoms/Input';
 import Button from '../atoms/Button';
+import { useNavigate } from 'react-router-dom';
 
 const AuthForm = ({ type = 'login', onSubmit }) => {
   const [form, setForm] = useState({
@@ -81,7 +82,7 @@ const AuthForm = ({ type = 'login', onSubmit }) => {
      {type === 'register' && (
        <p
          style={{ marginTop: '1rem', color: '#61dafb', cursor: 'pointer' }}
-         onClick={() => window.location.href = '/login'}
+         onClick={() => navigate('/login')}
        >
          Já tenho cadastro
        </p>

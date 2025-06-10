@@ -49,8 +49,6 @@ const handleLogin = async (data) => {
   }
 };
 
-
-
   return <AuthLayout type="login" onSubmit={handleLogin} />;
 };
 
